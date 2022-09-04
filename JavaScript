@@ -1,0 +1,51 @@
+
+float y = 0;
+float screenRatio = 16/9;
+float rectX_Ratio = (float) 90/1280;
+float rectY_Ratio = (float) 90/720;
+float speed_Ratio = (float) 1/720;
+float rect_x = 90;
+float rect_y = 90;
+float speed = 1;
+boolean stop = false;
+float steps = 0;
+boolean stepEnable = false;
+void setup() {
+  size(640, 360);
+  background(240, 240, 240);
+  screenRatio = width/(float)height;
+  rect_x = width*rectX_Ratio;
+  rect_y = height*rectY_Ratio;
+  speed = speed_Ratio * height;
+  steps = height / 8;
+}
+
+void draw() {
+  if (!stepEnable) {
+    if (!stop) {
+      background(240, 240, 240);
+      fill(255, 147, 79);
+      rect(0, y, rect_x, rect_y);
+      y+= speed;
+
+      if (y+rect_y>=height || y<=0 ) {
+        speed =- speed;
+      }
+    }
+  }
+}
+
+void keyPressed() {
+  if (key ==' ') {
+    stepEnable = false;
+    if (stop) {
+      stop = false;
+    } else {
+      stop = true;
+    }
+  } 
+  else if (key == 's' || key == 'S') {
+    stepEnable = true;
+    stop = true;
+  }
+}
